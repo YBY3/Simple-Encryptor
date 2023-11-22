@@ -1,12 +1,19 @@
-11/16/2023 Austen Radigk
+11/22/2023 Austen Radigk
+
+Tests
+--------------------------------------------------------------------------------
 
 Encryptor_Tests:
 	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar tests/Encryptor_Test.java
-	RUN: java -jar /Library/Java/Extensions/junit.jar --classpath /Library/Java/Extensions/junit.jar:. --class-path tests --scan-classpath --reports-dir tests
 
 Decryptor_Tests:
 	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar tests/Decryptor_Test.java
+
+Run Tests:
 	RUN: java -jar /Library/Java/Extensions/junit.jar --classpath /Library/Java/Extensions/junit.jar:. --class-path tests --scan-classpath --reports-dir tests
+
+--------------------------------------------------------------------------------
+
 
 OutputTools (WIP)
 

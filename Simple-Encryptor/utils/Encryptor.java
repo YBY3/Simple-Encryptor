@@ -1,4 +1,4 @@
-//11/16/2023 Austen Radigk
+//11/22/2023 Austen Radigk
 
 package utils;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.lang.StringBuilder;
 public class Encryptor {
 		
 	//Fields
-	private String encrpytedText;
+	private String encryptedText;
 	public static final List<Character> KEYBOARD_LOWERCASE = 
 			Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
 			              'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
@@ -24,11 +24,13 @@ public class Encryptor {
 			
 
 	//Getters
-	public String getEncrpytedText() {return encrpytedText;}
+	public String getEncrpytedText() {return encryptedText;}
 
 
-	//Constructor (String)
-	public Encryptor (String plainText) {
+	//Constructor (String, String)
+	public Encryptor (String plainText, String key) {
+		List<Integer> indexArray = getIndexArray(plainText);
+		this.encryptedText = encryptIndexArray(indexArray, key);
 	}
 
 	

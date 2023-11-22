@@ -1,4 +1,4 @@
-//11/19/2023 Austen Radigk
+//11/22/2023 Austen Radigk
 
 package utils;
 import java.util.List;
@@ -27,8 +27,10 @@ public class Decryptor {
 	public String getDecrpytedText() {return decryptedText;}
 
 
-	//Constructor (String)
-	public Decryptor (String decryptedText) {
+	//Constructor (String, String)
+	public Decryptor (String encryptedText, String key) {
+		List<Integer> indexArray = getIndexArray(encryptedText);
+		this.decryptedText = decryptIndexArray(indexArray, key);
 	}
 
 
@@ -107,6 +109,7 @@ public class Decryptor {
 		String caseType = "lower"; //Converting to lowercase first
 		int keyIndex = 0;
 		int upperCount = 1;
+		int lastIndex = 0;
 		List<Integer> keyIndexArray = new ArrayList<>();
 		List<Character> decryptedArray = new ArrayList<>();
 
@@ -131,8 +134,10 @@ public class Decryptor {
 			else if (caseType == "upper") {
 				char matrixEntry = getColumn(keyIndexArray.get(keyIndex), intArray.get(i), caseType);
 				if (upperCount % 2 == 0) {
-					decryptedArray.add(getUpperPositionIndex(matrixEntry), decryptedArray.get(i-2));
-					decryptedArray.remove(i-1);
+					lastIndex = (decryptedArray.size()-1);
+					decryptedArray.add(getUpperPositionIndex(matrixEntry), decryptedArray.get(lastIndex));
+					lastIndex = (decryptedArray.size()-1);
+					decryptedArray.remove(lastIndex);
 				}
 				else {decryptedArray.add(matrixEntry);}
 				keyIndex ++;
