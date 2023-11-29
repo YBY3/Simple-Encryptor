@@ -1,4 +1,4 @@
-11/27/2023 Austen Radigk
+11/28/2023 Austen Radigk
 
 Encryptor & Decryptor indexArray Format:
 --------------------------------------------------------------------------------
@@ -10,31 +10,13 @@ UpperCase - T0 (T=Character 0=IndexPosition)
 --------------------------------------------------------------------------------
 
 
-Simple-Encryptor (main) (TEMP)
+Console JUnit 
 --------------------------------------------------------------------------------
 
-COMPILE: javac ProgramDriver.java
-RUN: java ProgramDriver
+Compile Tests & Classes:
+	javac -d bin -cp ".:/Library/Java/Extensions/junit.jar" src/test/* src/util/*
 
---------------------------------------------------------------------------------
-
-
-Console JUnit (TEMP)
---------------------------------------------------------------------------------
-
-Encryptor_Test:
-	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar test/Encryptor_Test.java
-
-Decryptor_Test:
-	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar test/Decryptor_Test.java
-
-Reader_Test:
-	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar test/Reader_Test.java
-
-Translator_Test:
-	COMPILE: javac -cp .:/Library/Java/Extensions/junit.jar test/Translator_Test.java
-
-Run All Test:
-	RUN: java -jar /Library/Java/Extensions/junit.jar --classpath /Library/Java/Extensions/junit.jar:. --class-path test --scan-classpath --reports-dir test
+Run Tests:
+	java -jar /Library/Java/Extensions/junit.jar -cp bin --scan-classpath --reports-dir bin/test/results
 
 --------------------------------------------------------------------------------
