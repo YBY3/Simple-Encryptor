@@ -1,20 +1,13 @@
-//11/26/2023 Austen Radigk
+//12/06/2023 Austen Radigk
 
 package util;
+import util.Translator;
 import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 
 public class Reader {
-
-	//Fields
-	List<String> fileData;
-
-
-	//Getters
-	public List<String> getFileData() {return fileData;}
-
 
 	//Constructor
 	public Reader() {
@@ -59,21 +52,21 @@ public class Reader {
     }
 
 
-    //Finds Group (WIP)
-    public static List<String> findGroup(List<String> formattedData, String groupHeader) {
+    //Finds Group
+    public static List<String> findGroup(List<String> fileData, String header) {
     	List<String> group = new ArrayList<>();
     	int separatorCount = 0;
     	boolean foundGroup = false;
 
     	//Finds & Builds Group
-    	for (String line : formattedData) {
-    		if (line.equals(groupHeader)) {
+    	for (String line : fileData) {
+    		if (line.equals(header)) {
     			group.add(line);
     			foundGroup = true;
     		}
     		else if (foundGroup) {
     			group.add(line);
-    			if (line.equals("---------------------------------------")) {
+    			if (Translator.isSeparator(line)) {
     				separatorCount ++;
     				if (separatorCount > 1) {break;}
     			}
@@ -85,13 +78,13 @@ public class Reader {
 
 
     //Finds Section
-    public static List<String> findSection(List<String> formattedData, String sectionHeader) {
+    public static List<String> findSection(List<String> fileData, String header) {
     	List<String> section = new ArrayList<>();
     	boolean foundSection = false;
 
     	//Finds & Builds Section
-    	for (String line : formattedData) {
-    		if (line.equals(sectionHeader)) {
+    	for (String line : fileData) {
+    		if (line.equals(header)) {
     			section.add(line);
     			foundSection = true;
     		}

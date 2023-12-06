@@ -1,8 +1,9 @@
-//11/30/2023 Austen Radigk
+//12/06/2023 Austen Radigk
 
 package util;
 import util.Encryptor;
 import util.Decryptor;
+import util.Reader;
 import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,8 +11,24 @@ import java.lang.StringBuilder;
 
 public class Translator {
 
+	//Fields
+	private Reader reader = new Reader();
+	private List<String> fileData;
+	private String filePath;
+
+
 	//Constructor
-	public Translator() {
+	public Translator(String filePath, String instruction) {
+		if (instruction == "encrypt") {
+			List<String> rawData = reader.readFile(filePath);
+			List<String> formattedData = reader.formatData(rawData);
+			this.fileData = encryptData(formattedData);
+		}
+		else if (instruction == "decrypt") {
+			List<String> encryptedData = reader.readFile(filePath);
+			this.fileData = decryptData(encryptedData);
+		}
+		this.filePath = filePath;
 	}
 
 
@@ -62,7 +79,7 @@ public class Translator {
 
 
 	//Determines if Line is a Separator
-	private static boolean isSeparator(String str) {
+	public static boolean isSeparator(String str) {
 		boolean isEmpty = str.isEmpty();
 
 		if (isEmpty) {
@@ -83,5 +100,30 @@ public class Translator {
 		}
 
 		return true;
+	}
+
+
+	//Returns Selected Output Data
+	public List<String> getOutput(String type, String header) {
+		List<String> fileData = this.fileData;
+		List<String> outputData = new ArrayList<String>();
+
+		if (type == "all") {
+            for (String line:fileData) {
+                outputData.add(line);
+            }
+        }
+        if (type == "group") {
+            for (String line:reader.findGroup(fileData, header)) {
+                outputData.add(line);
+            }
+        }
+        else if (type == "section") {
+            for (String line:reader.findSection(fileData, header)) {
+                outputData.add(line);
+            }
+        }
+
+        return outputData;
 	}
 }

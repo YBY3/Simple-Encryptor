@@ -1,7 +1,6 @@
-//12/02/2023 Austen Radigk
+//12/06/2023 Austen Radigk
 
 package main;
-import util.Reader;
 import util.Translator;
 import java.util.Scanner;
 import java.util.List;
@@ -12,9 +11,8 @@ public class Main {
     private static String status = "none";
     private static List<String> encryptedData;
     private static List<String> decryptedData;
-    private static Scanner Input = new Scanner(System.in);
-    private static Reader reader = new Reader();
-    private static Translator translator = new Translator();   
+    private static List<String> outputData;
+    private static Scanner Input = new Scanner(System.in);  
 
 
     //Main Method
@@ -31,23 +29,30 @@ public class Main {
     public static void directData() {
         if (status == "decrypt") {
             System.out.println("\nEnter File Address:");
-            encryptedData = reader.readFile(getInput());
-            decryptedData = translator.decryptData(encryptedData);
+            String filePath = getInput();
+            Translator translator = new Translator(filePath, "decrypt");
             printMenu(1);
-            String position = getInput();
-            if (!"1".equals(position)) {
+            String type = getInput();
+            if ("1".equals(type)) {
+                outputData = translator.getOutput("all", "");
+            }
+            else if ("2".equals(type)) {
                 System.out.println("\nEnter Header:");
                 String header = getInput();
-                printData(decryptedData, position, header);
+                outputData = translator.getOutput("group", header);
+                
             }
-            else if ("1".equals(position)) {
-                printData(decryptedData, position, "");
+            else if ("3".equals(type)) {
+                System.out.println("\nEnter Header:");
+                String header = getInput();
+                outputData = translator.getOutput("section", header);
             }
+            printOutput(outputData);
         }
         else if (status == "encrypt") {
             System.out.println("\nEnter File Address:");
-            decryptedData = reader.readFile(getInput());
-            encryptedData = translator.encryptData(decryptedData);
+            //decryptedData = reader.readFile(getInput());
+            //encryptedData = translator.encryptData(decryptedData);
             //Add File Output
         }
     }
@@ -61,7 +66,7 @@ public class Main {
             System.out.println("-----------------\n");
         }
         else if (k == 1) {
-            System.out.println("\n-Search-Menu-----");
+            System.out.println("\n-Search-Menu-----"); //WIP
             System.out.println("1 - All\n2 - Group\n3 - Section");
             System.out.println("-----------------\n");
         }
@@ -83,24 +88,12 @@ public class Main {
     }
 
 
-    //Print Data Based on section
-    private static void printData(List<String> data, String position, String header) {
-        System.out.println("\n-Start------------------------------------------\n");
-        if ("1".equals(position)) {
-            for (String line:data) {
-                System.out.println(line);
-            }
+    //Prints Output Data
+    private static void printOutput(List<String> outputData) {
+        System.out.println("\n-Output-Start---------------------------------------");
+        for (String line:outputData) {
+            System.out.println(line);
         }
-        else if ("2".equals(position)) {
-            for (String line:reader.findGroup(data, header)) {
-                System.out.println(line);
-            }
-        }
-        else if ("3".equals(position)) {
-            for (String line:reader.findSection(data, header)) {
-                System.out.println(line);
-            }
-        }
-        System.out.println("\n-End--------------------------------------------\n");
+        System.out.println("-Output-End-----------------------------------------");
     }
 }
