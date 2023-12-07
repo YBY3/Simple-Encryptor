@@ -108,10 +108,8 @@ public class Translator {
 		List<String> fileData = this.fileData;
 		List<String> outputData = new ArrayList<String>();
 
-		if (type == "all") {
-            for (String line:fileData) {
-                outputData.add(line);
-            }
+		if (type == "save") { //Save File
+            reader.writeFile(fileData, filePath, "none");
         }
         if (type == "group") {
             for (String line:reader.findGroup(fileData, header)) {

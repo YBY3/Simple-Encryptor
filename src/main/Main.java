@@ -34,26 +34,24 @@ public class Main {
             printMenu(1);
             String type = getInput();
             if ("1".equals(type)) {
-                outputData = translator.getOutput("all", "");
+                outputData = translator.getOutput("save", ""); //Saves New File (WIP)
             }
             else if ("2".equals(type)) {
                 System.out.println("\nEnter Header:");
                 String header = getInput();
                 outputData = translator.getOutput("group", header);
-                
+                printOutput(outputData);
             }
             else if ("3".equals(type)) {
                 System.out.println("\nEnter Header:");
                 String header = getInput();
                 outputData = translator.getOutput("section", header);
+                printOutput(outputData);
             }
-            printOutput(outputData);
         }
         else if (status == "encrypt") {
             System.out.println("\nEnter File Address:");
-            //decryptedData = reader.readFile(getInput());
-            //encryptedData = translator.encryptData(decryptedData);
-            //Add File Output
+            
         }
     }
 
@@ -67,7 +65,7 @@ public class Main {
         }
         else if (k == 1) {
             System.out.println("\n-Search-Menu-----"); //WIP
-            System.out.println("1 - All\n2 - Group\n3 - Section");
+            System.out.println("1 - Save New File\n2 - Group\n3 - Section");
             System.out.println("-----------------\n");
         }
     }

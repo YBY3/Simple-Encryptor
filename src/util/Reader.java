@@ -6,6 +6,8 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Reader {
 
@@ -14,7 +16,7 @@ public class Reader {
 	}
 
 
-	//Reads File
+	//Reads File (WIP)
 	public static List<String> readFile(String filePath) {
 		try {
 	        Path path = Paths.get(filePath);
@@ -25,6 +27,19 @@ public class Reader {
             return null;
         }
     }
+
+
+    //Creates/Updates and Writes to File (WIP)
+    public void writeFile(List<String> fileData, String filePath) {
+        try (FileWriter fileWriter = new FileWriter(filePath + "_decrypted")) {
+            for (String line : fileData) {
+                fileWriter.write(line + "\n");
+            }
+            System.out.println("File created and written successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating or writing the file: " + e.getMessage());
+        }
+    } 
 
 
     //Formats File (Removes Unnecessary Spacing)
