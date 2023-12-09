@@ -121,13 +121,17 @@ public class Translator {
 	}
 
 
-	//Returns Selected Output Data
-	public List<String> getOutput(String type, String header) {
+	//Returns Selected Output Data (WIP)
+	public List<String> getOutput(String type, String header, String instruction) {
 		List<String> fileData = this.fileData;
 		List<String> outputData = new ArrayList<String>();
+		String fileTag = "";
+
+		if (instruction == "encrypt") {fileTag = "_encrypted";}
+		else if (instruction == "decrypt") {fileTag = "_decrypted";}
 
 		if (type == "save") { //Save File
-            reader.writeFile(fileData, filePath);
+            reader.writeFile(fileData, filePath, fileTag);
         }
         if (type == "group") {
             for (String line:reader.findGroup(fileData, header)) {

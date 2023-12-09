@@ -30,28 +30,28 @@ public class Main {
         System.out.println("\nEnter File Address:");
         try {
             Translator translator = new Translator(getInput(), status);
-            while (status == "decrypt") {
+            while (status == "decrypt") { //WIP
                 printMenu(1);
                 String type = getInput();
                 if ("1".equals(type)) {
-                    translator.getOutput("save", ""); //Saves New File (WIP)
+                    translator.getOutput("save", "", "decrypt"); //Saves New File (WIP)
                 }
                 else if ("2".equals(type)) {
                     System.out.println("\nEnter Header:");
                     String header = getInput();
-                    outputData = translator.getOutput("group", header);
+                    outputData = translator.getOutput("group", header, "");
                     printOutput(outputData);
                 }
                 else if ("3".equals(type)) {
                     System.out.println("\nEnter Header:");
                     String header = getInput();
-                    outputData = translator.getOutput("section", header);
+                    outputData = translator.getOutput("section", header, "");
                     printOutput(outputData);
                 }
                 else if ("4".equals(type)) {status = "none";}
             }
             if (status == "encrypt") {
-                translator.getOutput("save", ""); //Saves New File (WIP)
+                translator.getOutput("save", "", "encrypt"); //Saves New File (WIP)
             }
         } 
         catch (Exception error) {System.out.println(error.getMessage());}
@@ -90,10 +90,10 @@ public class Main {
 
     //Prints Output Data
     private static void printOutput(List<String> outputData) {
-        System.out.println("\n-Output-Start---------------------------------------");
+        System.out.println("\n\n-Output-Start---------------------------------------\n");
         for (String line:outputData) {
             System.out.println(line);
         }
-        System.out.println("-Output-End-----------------------------------------");
+        System.out.println("\n-Output-End-----------------------------------------\n");
     }
 }

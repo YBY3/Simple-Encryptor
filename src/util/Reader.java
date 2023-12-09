@@ -1,4 +1,4 @@
-//12/06/2023 Austen Radigk
+//12/09/2023 Austen Radigk
 
 package util;
 import util.Translator;
@@ -21,6 +21,7 @@ public class Reader {
 		try {
 	        Path path = Paths.get(filePath);
 	        List<String> rawData = Files.readAllLines(path);
+            System.out.println("\nFile Read");
 	        return rawData;
         } 
         catch (NoSuchFileException e) {
@@ -34,15 +35,16 @@ public class Reader {
     }
 
 
-    //Creates/Updates and Writes to File (WIP)
-    public void writeFile(List<String> fileData, String filePath) {
-        try (FileWriter fileWriter = new FileWriter(filePath + "_decrypted")) {
+    //Creates New File
+    public void writeFile(List<String> fileData, String filePath, String fileTag) {
+        try (FileWriter fileWriter = new FileWriter(filePath + fileTag)) {
             for (String line : fileData) {
                 fileWriter.write(line + "\n");
             }
-            System.out.println("File created and written successfully.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while creating or writing the file: " + e.getMessage());
+            System.out.println("\nFile Saved at: " + filePath + fileTag);
+        } 
+        catch (IOException e) {
+            System.out.println("\nFailed to Create File: " + e.getMessage());
         }
     } 
 
