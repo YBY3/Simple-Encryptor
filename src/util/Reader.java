@@ -16,14 +16,19 @@ public class Reader {
 	}
 
 
-	//Reads File (WIP)
+	//Reads File
 	public static List<String> readFile(String filePath) {
 		try {
 	        Path path = Paths.get(filePath);
 	        List<String> rawData = Files.readAllLines(path);
 	        return rawData;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } 
+        catch (NoSuchFileException e) {
+            System.out.println("\nInvalid File Path: " + e.getMessage());
+            return null;
+        }
+        catch (Exception e) {
+            System.out.println("\nError Reading File: " + e);
             return null;
         }
     }
@@ -47,6 +52,9 @@ public class Reader {
     	List<String> formattedData = new ArrayList<>();
     	StringBuilder formattedLine;
     	boolean foundText = false;
+
+        //Checks for and Returns Null
+        if (rawData == null) {return null;}
 
     	//Builds formattedData
     	for (String line : rawData) {

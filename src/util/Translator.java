@@ -1,4 +1,4 @@
-//12/06/2023 Austen Radigk
+//12/09/2023 Austen Radigk
 
 package util;
 import util.Encryptor;
@@ -18,15 +18,27 @@ public class Translator {
 
 
 	//Constructor
-	public Translator(String filePath, String instruction) {
+	public Translator(String filePath, String instruction) throws Exception {
 		if (instruction == "encrypt") {
 			List<String> rawData = reader.readFile(filePath);
 			List<String> formattedData = reader.formatData(rawData);
-			this.fileData = encryptData(formattedData);
+			List<String> encryptedData = encryptData(formattedData);
+			if (encryptedData != null) {
+				this.fileData = encryptedData;
+			}
+			else if (encryptedData == null) {
+				throw new Exception("Failed to Encrypt Data");
+			}
 		}
 		else if (instruction == "decrypt") {
 			List<String> encryptedData = reader.readFile(filePath);
-			this.fileData = decryptData(encryptedData);
+			List<String> decryptedData = decryptData(encryptedData);
+			if (decryptedData != null) {
+				this.fileData = decryptedData;
+			}
+			else if (decryptedData == null) {
+				throw new Exception("Failed to Decrypt Data");
+			}
 		}
 		this.filePath = filePath;
 	}
@@ -38,6 +50,9 @@ public class Translator {
 		List<String> encryptedData = new ArrayList<>();
 		String encryptedLine;
 		boolean separatorFound;
+
+		//Checks for and Returns Null
+		if (formattedData == null) {return null;}
 
 		//Builds encryptedData
 		for (String line : formattedData) {
@@ -61,6 +76,9 @@ public class Translator {
 		List<String> decryptedData = new ArrayList<>();
 		String decryptedLine;
 		boolean separatorFound;
+
+		//Checks for and Returns Null
+		if (encryptedData == null) {return null;}
 
 		//Builds decryptedData
 		for (String line : encryptedData) {

@@ -1,4 +1,4 @@
-//12/06/2023 Austen Radigk
+//12/09/2023 Austen Radigk
 
 package main;
 import util.Translator;
@@ -28,30 +28,33 @@ public class Main {
     //Directs Data to Translator Based on Status
     private static void getTranslator() {
         System.out.println("\nEnter File Address:");
-        Translator translator = new Translator(getInput(), status);
-        while (status == "decrypt") {
-            printMenu(1);
-            String type = getInput();
-            if ("1".equals(type)) {
+        try {
+            Translator translator = new Translator(getInput(), status);
+            while (status == "decrypt") {
+                printMenu(1);
+                String type = getInput();
+                if ("1".equals(type)) {
+                    translator.getOutput("save", ""); //Saves New File (WIP)
+                }
+                else if ("2".equals(type)) {
+                    System.out.println("\nEnter Header:");
+                    String header = getInput();
+                    outputData = translator.getOutput("group", header);
+                    printOutput(outputData);
+                }
+                else if ("3".equals(type)) {
+                    System.out.println("\nEnter Header:");
+                    String header = getInput();
+                    outputData = translator.getOutput("section", header);
+                    printOutput(outputData);
+                }
+                else if ("4".equals(type)) {status = "none";}
+            }
+            if (status == "encrypt") {
                 translator.getOutput("save", ""); //Saves New File (WIP)
             }
-            else if ("2".equals(type)) {
-                System.out.println("\nEnter Header:");
-                String header = getInput();
-                outputData = translator.getOutput("group", header);
-                printOutput(outputData);
-            }
-            else if ("3".equals(type)) {
-                System.out.println("\nEnter Header:");
-                String header = getInput();
-                outputData = translator.getOutput("section", header);
-                printOutput(outputData);
-            }
-            else if ("4".equals(type)) {status = "none";}
-        }
-        if (status == "encrypt") {
-            translator.getOutput("save", ""); //Saves New File (WIP)
-        }
+        } 
+        catch (Exception error) {System.out.println(error.getMessage());}
     }
 
 
