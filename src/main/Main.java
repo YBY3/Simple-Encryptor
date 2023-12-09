@@ -20,21 +20,20 @@ public class Main {
         while (status != "exit") {
             printMenu(0);
             updateStatus(getInput());
-            directData();
+            if (status != "exit") {getTranslator();}
         }
     }
 
 
-    //Directs Data to Decryptor / Encryptor (WIP)
-    public static void directData() {
-        if (status == "decrypt") {
-            System.out.println("\nEnter File Address:");
-            String filePath = getInput();
-            Translator translator = new Translator(filePath, "decrypt");
+    //Directs Data to Translator Based on Status
+    private static void getTranslator() {
+        System.out.println("\nEnter File Address:");
+        Translator translator = new Translator(getInput(), status);
+        while (status == "decrypt") {
             printMenu(1);
             String type = getInput();
             if ("1".equals(type)) {
-                outputData = translator.getOutput("save", ""); //Saves New File (WIP)
+                translator.getOutput("save", ""); //Saves New File (WIP)
             }
             else if ("2".equals(type)) {
                 System.out.println("\nEnter Header:");
@@ -48,10 +47,10 @@ public class Main {
                 outputData = translator.getOutput("section", header);
                 printOutput(outputData);
             }
+            else if ("4".equals(type)) {status = "none";}
         }
-        else if (status == "encrypt") {
-            System.out.println("\nEnter File Address:");
-            
+        if (status == "encrypt") {
+            translator.getOutput("save", ""); //Saves New File (WIP)
         }
     }
 
@@ -64,8 +63,8 @@ public class Main {
             System.out.println("-----------------\n");
         }
         else if (k == 1) {
-            System.out.println("\n-Search-Menu-----"); //WIP
-            System.out.println("1 - Save New File\n2 - Group\n3 - Section");
+            System.out.println("\n-File-Menu-------");
+            System.out.println("1 - Save New File\n2 - Show Group\n3 - Show Section\n4 - Go Back");
             System.out.println("-----------------\n");
         }
     }

@@ -109,7 +109,7 @@ public class Translator {
 		List<String> outputData = new ArrayList<String>();
 
 		if (type == "save") { //Save File
-            reader.writeFile(fileData, filePath, "none");
+            reader.writeFile(fileData, filePath);
         }
         if (type == "group") {
             for (String line:reader.findGroup(fileData, header)) {
