@@ -1,4 +1,4 @@
-//11/26/2023 Austen Radigk
+//12/18/2023 Austen Radigk
 
 package test;
 import util.Reader;
@@ -11,6 +11,10 @@ import java.util.Arrays;
 public class Reader_Test {
 
 	//Fields
+	public static final List<String> fileAddresses = Arrays.asList(
+		"data/.DS_Store", "data/decrypted_test", "data/encrypted_test"
+	);
+
 	public static final List<String> rawData = Arrays.asList(
 		"Group 1",
 		"---------------------------------------", 
@@ -79,6 +83,16 @@ public class Reader_Test {
 
 	@Test() //1 Method
 	@Timeout(1)
+	public void scanFilePath(){
+		//Test 1
+		List<String> expectedRV = fileAddresses; //Expected Return Value
+		List<String> actualRV = Reader.scanFilePath("data"); //Actual Return Value
+		String failureString = "getFileAddress 1 ->"; //Failure String
+		assertEquals(failureString, expectedRV, actualRV);
+	}
+
+	@Test() //2 Method
+	@Timeout(1)
 	public void formatData(){
 		//Test 1
 		List<String> expectedRV = formattedData; //Expected Return Value
@@ -87,7 +101,7 @@ public class Reader_Test {
 		assertEquals(failureString, expectedRV, actualRV);
 	}
 
-	@Test() //2 Method
+	@Test() //3 Method
 	@Timeout(1)
 	public void findGroup(){
 		//Test 1
@@ -97,7 +111,7 @@ public class Reader_Test {
 		assertEquals(failureString, expectedRV, actualRV);
 	}
 
-	@Test() //3 Method
+	@Test() //4 Method
 	@Timeout(1)
 	public void findSection(){
 		//Test 1

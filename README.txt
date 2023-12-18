@@ -1,7 +1,11 @@
-11/30/2023 Austen Radigk
+12/06/2023 Austen Radigk
 
 Encryptor & Decryptor indexArray Format:
 --------------------------------------------------------------------------------
+
+decrypts / encryptes file based on file name**
+	test_encrypt (_encrypt)
+	test_decrypt (_decrypt)
 
 Test123
 LowerCase - est123
@@ -9,7 +13,7 @@ UpperCase - T0 (T=Character 0=IndexPosition)
 
 --------------------------------------------------------------------------------
 
-Main Driver
+Main Driver (UPDATED THE SHIT OUTA IT)
 --------------------------------------------------------------------------------
 
 Compile: javac -d bin src/main/* src/util/*

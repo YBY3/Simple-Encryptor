@@ -1,4 +1,4 @@
-//12/09/2023 Austen Radigk
+//12/18/2023 Austen Radigk
 
 package util;
 import util.Translator;
@@ -8,12 +8,35 @@ import java.util.ArrayList;
 import java.lang.StringBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.attribute.BasicFileAttributes;
 
 public class Reader {
 
 	//Constructor
 	public Reader() {
 	}
+
+
+    //Scans filePath and Returns File Addresses
+    public static List<String> scanFilePath(String filePath) { //WIP
+        List<String> fileAddresses = new ArrayList();
+        Path directory = Paths.get(filePath);
+        try {
+            Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                    fileAddresses.add(file.toString());
+                    return FileVisitResult.CONTINUE;
+                }
+                public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                    System.err.println("Failed to Visit File: " + file);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return fileAddresses;
+    }
 
 
 	//Reads File
@@ -41,10 +64,10 @@ public class Reader {
             for (String line : fileData) {
                 fileWriter.write(line + "\n");
             }
-            System.out.println("\nFile Saved at: " + filePath + fileTag);
+            System.out.println("\nFile Saved at: " + filePath + fileTag + "\n");
         } 
         catch (IOException e) {
-            System.out.println("\nFailed to Create File: " + e.getMessage());
+            System.out.println("\nFailed to Create File: " + e.getMessage() + "\n");
         }
     } 
 
