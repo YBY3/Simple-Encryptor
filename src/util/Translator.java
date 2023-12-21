@@ -1,42 +1,44 @@
-//12/18/2023 Austen Radigk
+ //12/21/2023 Austen Radigk
 
 package util;
-import util.Encryptor;
-import util.Decryptor;
-import util.Reader;
-import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
+import util.Encryptor;
+import util.Decryptor;
 
 public class Translator {
 
-	//Fields
-	private Reader reader = new Reader();
-	private List<String> fileData;
+	//Field
+	List<List<String>> newFileData = new ArrayList();
+	List<String> newFileTags = new ArrayList();
+
+
+	//Getters
+	public List<List<String>> getNewFileData() {return this.newFileData;}
+	public List<String> getNewFileTags() {return this.newFileTags;}
 
 
 	//Constructor
-	public Translator() throws Exception {
-		List<String> fileAddresses = reader.scanFilePath("data");
-		for (String address : fileAddresses) {
-			String orignalAddress = address.substring(0, address.length()-8);
-			String tag = address.substring(address.length()-8, address.length());
-			if (tag.equals("_encrypt")) {
-				List<String> rawData = reader.readFile(address);
-				List<String> formattedData = reader.formatData(rawData);
-				List<String> encryptedData = encryptData(formattedData);
+	public Translator(List<List<String>> filePathData, List<String> fileTags) throws Exception {
+		//Runs Through Each File Address
+		for (int i = 0; i < filePathData.size(); i++) {
+			//Encrypts Data
+			if ((fileTags.get(i)).equals("_encrypt")) {
+				List<String> encryptedData = encryptData(filePathData.get(i));
 				if (encryptedData != null) {
-					reader.writeFile(encryptedData, orignalAddress, "_encrypted");
+					newFileData.add(encryptedData);
+					newFileTags.add("_encrypted");
 				} else if (encryptedData == null) {
 					throw new Exception("Failed to Encrypt Data");
 				}
 			}
-			else if (tag.equals("_decrypt")) {
-				List<String> rawData = reader.readFile(address);
-				List<String> decryptedData = decryptData(rawData);
+
+			//Decrypts Data
+			else if ((fileTags.get(i)).equals("_decrypt")) {
+				List<String> decryptedData = decryptData(filePathData.get(i));
 				if (decryptedData != null) {
-					reader.writeFile(decryptedData, orignalAddress, "_decrypted");
+					newFileData.add(decryptedData);
+					newFileTags.add("_decrypted");
 				} else if (decryptedData == null) {
 					throw new Exception("Failed to Decrypt Data");
 				}

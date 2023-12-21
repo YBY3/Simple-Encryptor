@@ -1,24 +1,60 @@
-//12/18/2023 Austen Radigk
+//12/21/2023 Austen Radigk
 
 package util;
-import util.Translator;
-import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
+import java.nio.file.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class Reader {
 
+    //Fields
+    private List<List<String>> filePathData = new ArrayList<>(); //2D List
+    private List<String> originalPaths = new ArrayList<>();
+    private List<String> fileTags = new ArrayList<>();
+
+
+    //Getters
+    public List<List<String>> getFilePathData() {return this.filePathData;}
+    public List<String> getOriginalPaths() {return this.originalPaths;}
+    public List<String> getFileTags() {return this.fileTags;}
+
+
 	//Constructor
-	public Reader() {
+	public Reader(String filePath) throws Exception {
+        List<String> filePaths = scanFilePath(filePath);
+        String address;
+        String orignalAddress;
+        String tag;
+
+        //Reads and Saves Each Tasked File
+        for (int i = 0; i < filePaths.size(); i++) {
+            //Gets Tag
+            address = filePaths.get(i);
+            if (address.length() < 14) {throw new Exception("Invalid File Name: " + address);}
+            orignalAddress = address.substring(0, address.length()-8);
+            tag = address.substring(address.length()-8, address.length());
+
+            if (tag.equals("_encrypt") || tag.equals("_decrypt")) {
+                //Saves Oringal File Path
+                this.originalPaths.add(orignalAddress);
+
+                //Saves File Tag
+                this.fileTags.add(tag);
+
+                //Saves File Data
+                List<String> rawData = (readFile(filePaths.get(i)));
+                this.filePathData.add(formatData(rawData));
+            }
+        }
 	}
 
 
     //Scans filePath and Returns File Addresses
-    public static List<String> scanFilePath(String filePath) { //WIP
+    public static List<String> scanFilePath(String filePath) {
         List<String> fileAddresses = new ArrayList();
         Path directory = Paths.get(filePath);
         try {
@@ -44,7 +80,7 @@ public class Reader {
 		try {
 	        Path path = Paths.get(filePath);
 	        List<String> rawData = Files.readAllLines(path);
-            System.out.println("\nFile Read");
+            System.out.println("\nFile Read: " + filePath);
 	        return rawData;
         } 
         catch (NoSuchFileException e) {
@@ -64,10 +100,10 @@ public class Reader {
             for (String line : fileData) {
                 fileWriter.write(line + "\n");
             }
-            System.out.println("\nFile Saved at: " + filePath + fileTag + "\n");
+            System.out.println("\nFile Saved at: " + filePath + fileTag);
         } 
         catch (IOException e) {
-            System.out.println("\nFailed to Create File: " + e.getMessage() + "\n");
+            System.out.println("\nFailed to Create File: " + e.getMessage());
         }
     } 
 
@@ -97,51 +133,5 @@ public class Reader {
     	}
 
     	return formattedData;
-    }
-
-
-    //Finds Group
-    public static List<String> findGroup(List<String> fileData, String header) {
-    	List<String> group = new ArrayList<>();
-    	int separatorCount = 0;
-    	boolean foundGroup = false;
-
-    	//Finds & Builds Group
-    	for (String line : fileData) {
-    		if (line.equals(header)) {
-    			group.add(line);
-    			foundGroup = true;
-    		}
-    		else if (foundGroup) {
-    			group.add(line);
-    			if (Translator.isSeparator(line)) {
-    				separatorCount ++;
-    				if (separatorCount > 1) {break;}
-    			}
-    		}
-    	}
-
-    	return group;
-    }
-
-
-    //Finds Section
-    public static List<String> findSection(List<String> fileData, String header) {
-    	List<String> section = new ArrayList<>();
-    	boolean foundSection = false;
-
-    	//Finds & Builds Section
-    	for (String line : fileData) {
-    		if (line.equals(header)) {
-    			section.add(line);
-    			foundSection = true;
-    		}
-    		else if (foundSection) {
-    			if (line == "") {break;}
-    			section.add(line);
-    		}
-    	}
-
-    	return section;
     }
 }

@@ -13,8 +13,10 @@ UpperCase - T0 (T=Character 0=IndexPosition)
 
 --------------------------------------------------------------------------------
 
-Main Driver (UPDATED THE SHIT OUTA IT)
+Main Driver
 --------------------------------------------------------------------------------
+
+Note: File path is set at "data" and can be changed in the main class.
 
 Compile: javac -d bin src/main/* src/util/*
 Run: java -cp bin main.Main
