@@ -1,4 +1,4 @@
- //12/21/2023 Austen Radigk
+//12/22/2023 Austen Radigk @YBY3
 
 package util;
 import java.util.List;
@@ -8,7 +8,7 @@ import util.Decryptor;
 
 public class Translator {
 
-	//Field
+	//Fields
 	List<List<String>> newFileData = new ArrayList();
 	List<String> newFileTags = new ArrayList();
 

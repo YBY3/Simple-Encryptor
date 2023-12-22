@@ -1,19 +1,6 @@
-12/06/2023 Austen Radigk
+//12/22/2023 Austen Radigk @YBY3
 
-Encryptor & Decryptor indexArray Format:
---------------------------------------------------------------------------------
-
-decrypts / encryptes file based on file name**
-	test_encrypt (_encrypt)
-	test_decrypt (_decrypt)
-
-Test123
-LowerCase - est123
-UpperCase - T0 (T=Character 0=IndexPosition)
-
---------------------------------------------------------------------------------
-
-Main Driver
+Main Class
 --------------------------------------------------------------------------------
 
 Note: File path is set at "data" and can be changed in the main class.
@@ -23,13 +10,12 @@ Run: java -cp bin main.Main
 
 --------------------------------------------------------------------------------
 
-Console JUnit 
+Instructions
 --------------------------------------------------------------------------------
 
-Compile Tests & Util Classes:
-	javac -d bin -cp ".:/Library/Java/Extensions/junit.jar" src/test/* src/util/*
-
-Run Tests:
-	java -jar /Library/Java/Extensions/junit.jar -cp bin --scan-classpath --reports-dir bin/test/results
+Put a file containing text into the data folder, then rename the file 
+and add "_encrypt", or "_decrypt". After that, run the program, through
+console (MAKE SURE TO SET LOCATION TO SIMPLE ENCRYPTOR), or through a 
+custom shortcut. A new file should be saved in the "data" folder.
 
 --------------------------------------------------------------------------------

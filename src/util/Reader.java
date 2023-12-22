@@ -1,4 +1,4 @@
-//12/21/2023 Austen Radigk
+//12/22/2023 Austen Radigk @YBY3
 
 package util;
 import java.util.List;
@@ -61,6 +61,7 @@ public class Reader {
             Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                     fileAddresses.add(file.toString());
+                    System.out.println("File Found: " + file);
                     return FileVisitResult.CONTINUE;
                 }
                 public FileVisitResult visitFileFailed(Path file, IOException exc) {
@@ -80,15 +81,15 @@ public class Reader {
 		try {
 	        Path path = Paths.get(filePath);
 	        List<String> rawData = Files.readAllLines(path);
-            System.out.println("\nFile Read: " + filePath);
+            System.out.println("File Read: " + filePath);
 	        return rawData;
         } 
         catch (NoSuchFileException e) {
-            System.out.println("\nInvalid File Path: " + e.getMessage());
+            System.out.println("Invalid File Path: " + e.getMessage());
             return null;
         }
         catch (Exception e) {
-            System.out.println("\nError Reading File: " + e);
+            System.out.println("Error Reading File: " + e);
             return null;
         }
     }
@@ -100,10 +101,10 @@ public class Reader {
             for (String line : fileData) {
                 fileWriter.write(line + "\n");
             }
-            System.out.println("\nFile Saved at: " + filePath + fileTag);
+            System.out.println("File Saved at: " + filePath + fileTag);
         } 
         catch (IOException e) {
-            System.out.println("\nFailed to Create File: " + e.getMessage());
+            System.out.println("Failed to Create File: " + e.getMessage());
         }
     } 
 

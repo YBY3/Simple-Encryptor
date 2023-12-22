@@ -1,4 +1,4 @@
-//11/29/2023 Austen Radigk
+//12/22/2023 Austen Radigk @YBY3
 
 package util;
 import java.util.List;
@@ -9,16 +9,16 @@ import java.lang.StringBuilder;
 public class Decryptor {
 
 	//Fields
-	private static final int KEYBOARD_SIZE = 38;
+	private static final int KEYBOARD_SIZE = 39;
 	private static final List<Character> KEYBOARD_LOWERCASE = Arrays.asList(
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 
 		'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', 
-		'3', '4', '5', '6', '7', '8', '9', '0', ' ', ':'
+		'3', '4', '5', '6', '7', '8', '9', '0', ' ', ':', '.'
 	);
 	private static final List<Character> KEYBOARD_UPPERCASE = Arrays.asList(
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 		'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', 
-		'#', '$', '%', '^', '&', '*', '(', ')', '-', ';'
+		'#', '$', '%', '^', '&', '*', '(', ')', '-', ';', '>'
 	);
 
 

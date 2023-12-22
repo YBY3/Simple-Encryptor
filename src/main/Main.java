@@ -1,4 +1,4 @@
-//12/21/2023 Austen Radigk
+//12/22/2023 Austen Radigk @YBY3
 
 package main;
 import java.util.List;
@@ -8,24 +8,33 @@ import util.Translator;
 
 public class Main {
 
+    //Feilds
+    private static List<List<String>> filePathData;
+    private static List<String> filePaths;
+    private static List<String> fileTags;
+
+
     //Main Method
     public static void main(String[] args) {
         try {
             //Reads Data
+            System.out.println(""); //Spacer
             Reader reader = new Reader("data"); //Set File Path
-            List<List<String>> filePathData = reader.getFilePathData();
-            List<String> orignalPaths = reader.getOriginalPaths();
-            List<String> fileTags = reader.getFileTags();
+            filePathData = reader.getFilePathData();
+            filePaths = reader.getOriginalPaths();
+            fileTags = reader.getFileTags();
 
             //Translates Data
             Translator translator = new Translator(filePathData, fileTags);
-            List<List<String>> newFileData = translator.getNewFileData();
-            List<String> newFileTags = translator.getNewFileTags();
+            filePathData = translator.getNewFileData();
+            fileTags = translator.getNewFileTags();
 
             //Saves New File Data
-            for (int i = 0; i < newFileData.size(); i++) {
-                reader.writeFile(newFileData.get(i), orignalPaths.get(i), newFileTags.get(i));
+            System.out.println(""); //Spacer
+            for (int i = 0; i < filePathData.size(); i++) {
+                reader.writeFile(filePathData.get(i), filePaths.get(i), fileTags.get(i));
             }
+            System.out.println(""); //Spacer
         }
         catch (Exception errorMessage) {System.out.println(errorMessage);}
     }
